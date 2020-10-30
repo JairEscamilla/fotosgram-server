@@ -10,6 +10,7 @@ exports.verificaToken = (req, res, next) => {
     token_1.default.comprobarToken(userToken).then((decoded) => {
         req.usuario = decoded.usuario;
         console.log('Decoded', decoded);
+        next();
     }).catch(err => {
         res.json({
             ok: false,

@@ -2,6 +2,8 @@ import Server from './classes/server';
 import userRoutes from './routes/usuario';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import postRoutes from './routes/post';
+import fileUpload from 'express-fileupload';
 
 const server = new Server();
 
@@ -12,8 +14,14 @@ server.app.use(bodyParser.urlencoded({
 
 server.app.use(bodyParser.json());
 
+
+// FileUpload
+server.app.use(fileUpload());
+
+
 // Levantar express
 
+server.app.use('/posts', postRoutes); // Rutas de la aplicación
 server.app.use('/user', userRoutes); // Rutas de la aplicación
 
 // Conectar base de datos

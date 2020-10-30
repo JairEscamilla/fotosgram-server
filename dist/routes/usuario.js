@@ -59,7 +59,7 @@ userRoutes.post("/create", (req, res) => {
             _id: userDB._id,
             nombre: userDB.nombre,
             email: userDB.email,
-            avaar: userDB.avatar
+            avatar: userDB.avatar
         });
         return res.json({
             ok: true,
@@ -91,7 +91,7 @@ userRoutes.post('/update', autenticacion_1.verificaToken, (req, res) => {
             _id: userDB._id,
             nombre: userDB.nombre,
             email: userDB.email,
-            avaar: userDB.avatar
+            avatar: userDB.avatar
         });
         return res.json({
             ok: true,
