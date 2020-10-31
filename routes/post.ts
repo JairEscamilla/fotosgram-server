@@ -2,8 +2,10 @@ import { Router, Response } from 'express';
 import { verificaToken } from '../middlewares/autenticacion';
 import { Post } from '../models/post.model';
 import { FileUpload } from '../interfaces/file-upload';
+import FileSystem from '../classes/file-system';
 
 const postRoutes = Router();
+const fileSystem = new FileSystem();
 
 
 // Obtener post paginados
@@ -50,7 +52,7 @@ postRoutes.post("/", [verificaToken], (req: any, res: Response) => {
 
 
 // Servicio para subir archivos
-postRoutes.post("/upload", [verificaToken], (req: any, res: Response) => {
+postRoutes.post("/upload", [verificaToken], async (req: any, res: Response) => {
     if(!req.files){
         return res.status(400).json({
             ok: false, 
@@ -74,9 +76,10 @@ postRoutes.post("/upload", [verificaToken], (req: any, res: Response) => {
         });
     }
 
+    await fileSystem.guardarImagenTemporal(file, req.usuario._id);
 
     res.json({
-        ok: false,
+        ok: true,
         file: file.mimetype
     })
 });
