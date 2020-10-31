@@ -33,6 +33,8 @@ postRoutes.get("/", async (req: any, res: Response) => {
 postRoutes.post("/", [verificaToken], (req: any, res: Response) => {
     
     const body = req.body;
+    const imagenes = fileSystem.imagenesDeTempHaciaPost(req.usuario._id);
+    body.imgs = imagenes;
 
     body.usuario = req.usuario._id;
 
@@ -82,6 +84,17 @@ postRoutes.post("/upload", [verificaToken], async (req: any, res: Response) => {
         ok: true,
         file: file.mimetype
     })
+});
+
+
+postRoutes.get("/imagen/:userid/:img", (req: any, res: Response) => {
+    const userId = req.params.userid;
+    const img = req.params.img;
+
+    const pathFoto = fileSystem.getFotoUrl(userId, img);
+
+    res.sendFile(pathFoto);
+
 });
 
 export default postRoutes;

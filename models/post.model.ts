@@ -10,7 +10,7 @@ const postSchema = new Schema({
         type: String
     },
 
-    img: [{
+    imgs: [{
         type: String
     }],
 

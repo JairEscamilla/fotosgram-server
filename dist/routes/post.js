@@ -38,6 +38,8 @@ postRoutes.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 // Crear post
 postRoutes.post("/", [autenticacion_1.verificaToken], (req, res) => {
     const body = req.body;
+    const imagenes = fileSystem.imagenesDeTempHaciaPost(req.usuario._id);
+    body.imgs = imagenes;
     body.usuario = req.usuario._id;
     post_model_1.Post.create(body).then((postDB) => __awaiter(void 0, void 0, void 0, function* () {
         yield postDB.populate('usuario', '-password').execPopulate();
@@ -76,4 +78,10 @@ postRoutes.post("/upload", [autenticacion_1.verificaToken], (req, res) => __awai
         file: file.mimetype
     });
 }));
+postRoutes.get("/imagen/:userid/:img", (req, res) => {
+    const userId = req.params.userid;
+    const img = req.params.img;
+    const pathFoto = fileSystem.getFotoUrl(userId, img);
+    res.sendFile(pathFoto);
+});
 exports.default = postRoutes;
