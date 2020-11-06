@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/index.js",
-    "postinstall": "tsc",
+    "postinstall": "npm run tsc",
     "watch-node": "nodemon dist/index.js",
     "watch-ts": "tsc -w",
     "deploy": "git add . && git commit -m Heroku && git push heroku master"
@@ -33,6 +33,7 @@
   },
   "engines": {
     "node": "10.19.0"
-  }
+  },
+  "tsc": "tsc"
   
 }
