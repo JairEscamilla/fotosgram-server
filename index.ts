@@ -27,7 +27,8 @@ server.app.use('/user', userRoutes); // Rutas de la aplicación
 // Conectar base de datos
 mongoose.connect('mongodb://localhost:27017/fotosgram', {
         useNewUrlParser: true,
-        useCreateIndex: true
+        useCreateIndex: true,
+        useUnifiedTopology: true
     }, (error) => {
         if(error) throw error;
         console.log('Base de datos online');
